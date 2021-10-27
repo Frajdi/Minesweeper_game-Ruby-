@@ -101,6 +101,77 @@ class Board
         @grid[x][y]
     end
 
+    def big_reveal(val, pos)
+        i = pos[0]
+        j = pos[1]
+        if val.value == "_"
+            val.reveal
+                if (@grid[i+1]) != nil && (@grid[i+1][j-1]) != nil && !(@grid[i+1][j-1]).revealed?
+                    if (@grid[i+1][j-1]).value == "_"
+                        big_reveal(@grid[i+1][j-1], [i+1, j-1])
+                    else
+                        (@grid[i+1][j-1]).reveal
+                    end
+                end
+
+                if (@grid[i+1]) != nil && (@grid[i+1][j]) != nil && !(@grid[i+1][j]).revealed?
+                    if (@grid[i+1][j]).value == "_"
+                        big_reveal(@grid[i+1][j], [i+1, j])
+                    else
+                        (@grid[i+1][j]).reveal
+                    end
+                end
+
+                if (@grid[i+1]) != nil && (@grid[i+1][j+1]) != nil && !(@grid[i+1][j+1]).revealed?
+                    if (@grid[i+1][j+1]).value == "_"
+                        big_reveal(@grid[i+1][j+1], [i+1, j+1])
+                    else
+                        (@grid[i+1][j+1]).reveal
+                    end
+                end
+
+                if (@grid[i]) != nil && (@grid[i][j+1]) != nil && !(@grid[i][j+1]).revealed?
+                    if (@grid[i][j+1]).value == "_"
+                        big_reveal(@grid[i][j+1], [i, j+1])
+                    else
+                        (@grid[i][j+1]).reveal
+                    end
+                end
+
+                if (@grid[i-1]) != nil && (@grid[i-1][j+1]) != nil && !(@grid[i-1][j+1]).revealed?
+                    if (@grid[i-1][j+1].value) == "_"
+                        big_reveal(@grid[i-1][j+1], [i-1, j+1])
+                    else
+                        (@grid[i-1][j+1]).reveal
+                    end
+                end
+
+                if (@grid[i-1]) != nil && (@grid[i-1][j]) != nil && !(@grid[i-1][j]).revealed?
+                    if (@grid[i-1][j]).value == "_"
+                        big_reveal(@grid[i-1][j] , [i-1, j])
+                    else
+                        (@grid[i-1][j]).reveal
+                    end
+                end
+
+                if (@grid[i-1]) != nil && (@grid[i-1][j-1]) != nil && !(@grid[i-1][j-1]).revealed?
+                    if (@grid[i-1][j-1]).value == "_"
+                        big_reveal(@grid[i-1][j-1], [i-1, j-1])
+                    else
+                        (@grid[i-1][j-1]).reveal
+                    end
+                end
+
+                if (@grid[i]) != nil && (@grid[i][j-1]) != nil && !(@grid[i][j-1]).revealed?
+                    if (@grid[i][j-1]).value == "_"
+                        big_reveal(@grid[i][j-1] , [i, j-1])
+                    else
+                        (@grid[i][j-1]).reveal
+                    end
+                end
+        end
+    end
+
     def solved?
         @grid.each do |row|
             row.each do |ele|

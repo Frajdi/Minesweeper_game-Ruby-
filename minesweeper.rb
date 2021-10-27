@@ -1,7 +1,6 @@
 require_relative "board"
 require_relative "tile"
 
-
 class Minesweeper
   
     def initialize
@@ -48,8 +47,10 @@ class Minesweeper
     def play_turn
         @board.render
         pos = get_pos
-        @board[pos].reveal  
-        p @board              
+        @board.big_reveal(@board[pos], pos)
+        if !@board[pos].revealed?
+            @board[pos].reveal
+        end             
     end
 
     def run
